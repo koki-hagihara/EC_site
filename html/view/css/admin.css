@@ -1,0 +1,22 @@
+body{
+    min-width:960px;
+}
+
+table{
+    width:1200px;
+}
+
+table,td,th,tr{
+    border:1px solid;
+    text-align:center;
+    vertical-align: middle;
+}
+
+img{
+    width:100px;
+}
+
+.change_stock {
+    width: 50px;
+}
+

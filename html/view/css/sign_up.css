@@ -1,0 +1,38 @@
+body{
+    width:1200px;
+    min-width:960px;
+    margin: 100px auto;
+}
+
+main{
+    width:600px;
+    margin:0 auto;
+}
+
+h1{
+    font-size: 50px;
+    font-family: 'Vollkorn', serif;
+    color:#1e90ff;
+    text-align:center;
+}
+
+h2{
+    font-size:25px;
+    text-align:center;
+    margin-top:20px;
+}
+
+form{
+    text-align:center;
+    margin-top: 20px;
+}
+
+.passwd, .mail, .gender, .submit {
+    margin-top:10px;
+}
+
+.back {
+    text-align:center;
+    margin-top: 20px;
+    margin-top:10px;
+}

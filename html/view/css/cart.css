@@ -1,0 +1,142 @@
+body{
+    min-width:1000px;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.header_logo {
+    margin-right: auto;
+    margin-left: 0px;
+    margin-top: 5px;
+}
+
+.header_link {
+    display: flex;
+    font-size: 15px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.logo {
+    font-family: 'Vollkorn', serif;
+    font-size: 50px;
+}
+
+.header_link * {
+    margin-right:15px;
+    margin-bottom: 5px;
+}
+
+.main {
+    border-top: solid 2px #b0c4de;
+}
+
+.main_container {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    font-size: 25px;
+    margin-top: 40px;
+    color: #afeeee;
+}
+
+.main p {
+    text-align: center;
+    margin-top: 40px;
+    font-weight: bold;
+}
+
+span.total_price {
+    margin: 0 15px;
+    color: #ff0000;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+table{
+    width:830px;
+    margin: 0 auto;
+}
+
+table,td,th,tr{
+    border:1px solid;
+    text-align:center;
+    vertical-align: middle;
+}
+
+th{
+    height:20px;
+}
+
+img{
+    width:80px;
+    height:70px;
+}
+
+.deleat{
+    width:70px;
+}
+
+.img{
+    width:100px;
+}
+
+.item_name{
+    width:250px;
+}
+
+.price{
+    width:150px;
+}
+
+.amount{
+    width:120px;
+}
+
+.sub_total{
+    width:140px;
+}
+
+.total{
+    width:830px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.link {
+    display: flex;
+    margin-top: 40px;
+    margin: 40px 170px 0 170px;
+}
+
+.link_top {
+    flex: 1;
+    text-align: center;
+}
+
+.link_buy {
+    flex: 1;
+    text-align: center;
+}
+
+.link_border {
+    border: solid 2px #4169e1;
+    padding: 3px 3px 1px 3px;
+    color: #4169e1;
+}
+

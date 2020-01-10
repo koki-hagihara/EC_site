@@ -1,0 +1,28 @@
+body{
+    width:1200px;
+    min-width:960px;
+    margin: 100px auto;
+}
+
+main{
+    width:600px;
+    margin:0 auto;
+}
+
+h1{
+    font-size: 50px;
+    font-family: 'Vollkorn', serif;
+    color:#1e90ff;
+    text-align:center;
+}
+
+p{
+    text-align:center;
+    margin-top: 20px;
+}
+
+.link {
+    font-size: 20px;
+    text-align:center;
+    margin-top: 20px;
+}
