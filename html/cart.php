@@ -3,17 +3,18 @@ require_once './model/function.php';
 require_once './conf/const.php';
 
 session_start();
-if(isset($_SESSION['user_id']) ){
-    $user_id=$_SESSION['user_id'];
-}else{
+
+if (is_logined() === false) {
     header('Location:login.php');
     exit;
+} else {
+    $user_id = get_session('user_id');
 }
+
 try {
     $dbh = get_db_connect();
     
-    //ログイン後ページで$user_nameを表示するための関数呼び出し
-    $user_name=after_login_get_name($dbh,$user_id);
+    $user = get_login_user($dbh, $user_id);
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //カートに入れるボタンが押されたら

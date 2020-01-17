@@ -138,24 +138,85 @@ function redirect_to($url) {
     exit;
 }
 
-function get_login_user($dbh) {
-    $user_id = get_session('user_id');
+function get_login_user($dbh, $user_id) {   
     try {
-        $sql = 'SELECT user_name, type
+        $sql = "
+                SELECT user_id, user_name, type
                 FROM EC_users
-                WHERE user_id = ?';
+                WHERE user_id = ?
+                LIMIT 1
+                ";
         $stmt = $dbh->prepare($sql);
         $stmt->bindValue(1, $user_id, PDO::PARAM_INT);
         $stmt->execute();
         $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $user = entity_assoc_array($user);
     } catch (PDOException $e){
         throw $e;
     }
     return $user;
 }
 
+function get_all_history($dbh) {
+    $sql = "
+            SELECT 
+            EC_history.history_id, 
+            DATE_FORMAT(EC_history.datetime, \"%Y-%m-%d\") AS order_date, 
+            SUM(EC_history_details.price * EC_history_details.amount) AS total_price
+            FROM EC_history JOIN EC_history_details
+            ON EC_history.history_id = EC_history_details.history_id
+            GROUP BY EC_history_details.history_id
+            ORDER BY EC_history.datetime desc
+            ";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+    $history = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $history = entity_assoc_array($history);
 
+    return $history;
+}
 
+function get_private_history_list($dbh, $user_id) {
+    $sql = "
+            SELECT 
+            EC_history.history_id, 
+            DATE_FORMAT(EC_history.datetime, \"%Y-%m-%d\") AS order_date, 
+            SUM(EC_history_details.price * EC_history_details.amount) AS total_price
+            FROM EC_history JOIN EC_history_details
+            ON EC_history.history_id = EC_history_details.history_id
+            WHERE EC_history.user_id = ?
+            GROUP BY EC_history_details.history_id
+            ORDER BY EC_history.datetime desc
+            ";
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindValue(1, $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $history = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $history = entity_assoc_array($history);
 
+    return $history;
+}
 
+function get_history_details($dbh, $history_id) {
+    $sql = "
+            SELECT 
+            EC_items.item_name,
+            EC_history_details.price,
+            EC_history_details.amount,
+            EC_history.user_id,
+            EC_history_details.price * EC_history_details.amount AS sub_total_price
+            FROM EC_items JOIN EC_history_details
+            ON EC_items.item_id = EC_history_details.item_id JOIN EC_history
+            ON EC_history_details.history_id = EC_history.history_id
+            WHERE 
+            EC_history_details.history_id = ?
+            ";
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindValue(1, $history_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $history_details = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $history_details = entity_assoc_array($history_details);
+
+    return $history_details;
+}
 

@@ -3,40 +3,26 @@ require_once './model/function.php';
 require_once './conf/const.php';
 
 session_start();
-if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-} else {
+if (is_logined() === false){
     header('Location:login.php');
     exit;
+} else {
+    $user_id = get_session('user_id');
 }
-$data = array();
 
 try {
     $dbh = get_db_connect();
-    
-    $sql = 'SELECT 
-            EC_history_details.price,
-            EC_history_details.amount,
-            DATE_FORMAT(EC_history.datetime, \'%Y-%m-%d\'),
-            EC_items.item_name,
-            EC_items.img
-            FROM EC_history_details INNER JOIN EC_history
-            ON EC_history_details.history_id = EC_history.history_id
-            INNER JOIN EC_items
-            ON EC_items.item_id = EC_history_details.item_id
-            WHERE EC_history.user_id = ?
-            ORDER BY datetime desc';
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindValue(1, $user_id, PDO::PARAM_INT);
-    $stmt->execute();
-    $rows_history = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $rows_history = entity_assoc_array($rows_history);
-    
 
-    
+    $user = get_login_user($dbh, $user_id);
+
+    if ($user[0]['type'] === '0') {
+        $history = get_all_history($dbh);
+    } else if($user[0]['type'] === '1') {
+        $history = get_private_history_list($dbh, $user_id);
+    }
+
 } catch(PDOException $e) {
-    $err_msg[] = 'エラーが発生しました。原因：' .$e->getMessage();
+    $err_msg[] = 'エラーが発生しました:'.$e->getMessage();
 }
-
 
 include_once './view/history_view.php';

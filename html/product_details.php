@@ -3,20 +3,21 @@ require_once './model/function.php';
 require_once './conf/const.php';
 
 session_start();
-if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-} else {
+
+if (is_logined() === false){
     header('Location:login.php');
     exit;
+} else {
+    $user_id = get_session('user_id');
 }
+
 //GETで取得した商品IDを使ってデータベース参照、商品詳細画面をつくる
 try{
     $dbh = get_db_connect();
     $item_id = get_get_data('item_id');
     
-    $user_name=after_login_get_name($dbh,$user_id);
+    $user = get_login_user($dbh, $user_id);
     
-    //ユーザー定義関数呼び出し
     //取得したGETが正しいものかチェック
     check_item_id($item_id);
 
@@ -38,10 +39,5 @@ try{
 }catch(PDOException $e){
     $err_msg[] = 'エラーが発生しました。理由：'.$e->getMessage();
 }
-
-
-
-
-
 
 include_once './view/product_details_view.php';

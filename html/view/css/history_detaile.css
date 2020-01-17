@@ -1,0 +1,84 @@
+body{
+    min-width:1000px;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.header_logo {
+    margin-right: auto;
+    margin-left: 0px;
+    margin-top: 5px;
+}
+
+.header_link {
+    display: flex;
+    font-size: 15px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.logo {
+    font-family: 'Vollkorn', serif;
+    font-size: 50px;
+}
+
+.header_link * {
+    margin-right:15px;
+    margin-bottom: 5px;
+}
+
+.main_title {
+    text-align: center;
+    font-size: 25px;
+    margin-top: 30px;
+}
+
+.main_container {
+    margin-top: 30px;
+}
+
+.order_number {
+    width: 830px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.buy_date {
+    width: 830px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.total_price {
+    width: 830px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+table{
+    width:830px;
+    margin: 0 auto;
+}
+
+table,td,th,tr{
+    border:1px solid;
+    text-align:center;
+    vertical-align: middle;
+}
+
+.item_img{
+    width:80px;
+    height:70px;
+}
+
+a {
+    text-decoration: none;
+}

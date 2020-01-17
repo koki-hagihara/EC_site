@@ -16,7 +16,7 @@
                 <a href="after_login.php">TOP</a>
                 <a href="history.php">購入履歴</a>
                 <a href="cart.php">CART</a>
-                <?php if ($user[0]['type'] === 0) { ?>
+                <?php if ($user[0]['type'] === '0') { ?>
                     <a href = "admin.php">管理ページ</a>
                 <?php } ?>
                 <a href="logout.php">LOG OUT</a>

@@ -15,6 +15,9 @@
                 <p class="welcome_msg">ようこそ！<?php print $user_name;?>様</p>
                 <a href="after_login.php">TOP</a>
                 <a href="history.php">購入履歴</a>
+                <?php if ($user[0]['type'] === '0') { ?>
+                    <a href = "admin.php">管理ページ</a>
+                <?php } ?>
                 <a href="logout.php">LOG OUT</a>
             </div>
         </header>
