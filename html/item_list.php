@@ -3,24 +3,24 @@ require_once './model/function.php';
 require_once './conf/const.php';
 
 session_start();
-if(isset($_SESSION['user_id'])){
-    $user_id=$_SESSION['user_id'];
-}else{
+
+if (is_logined() === false) {
     header('Location:login.php');
     exit;
+} else {
+    $user_id = get_session('user_id');
 }
 
 try {
     $dbh = get_db_connect();
     $rough_type_id = get_get_data('rough_type_id');
     
-    $user_name = after_login_get_name($dbh,$user_id);
+    $user = get_login_user($dbh, $user_id);
     
     check_item_type($rough_type_id);
     
     if (count($err_msg) === 0) {
-
-        
+     
         $sql = 'SELECT
                 EC_items.item_id,
                 EC_items.item_name,

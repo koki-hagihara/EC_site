@@ -3,18 +3,20 @@ require_once './model/function.php';
 require_once './conf/const.php';
 
 session_start();
-if(isset($_SESSION['user_id']) ){
-    $user_id=$_SESSION['user_id'];
-}else{
+
+if (is_logined() === false) {
     header('Location:login.php');
     exit;
+} else {
+    $user_id = get_session('user_id');
 }
+
 
 $rows_buy=array();
 try {
     $dbh = get_db_connect();
     
-    $user_name=after_login_get_name($dbh,$user_id);
+    $user = get_login_user($dbh, $user_id);
     
     $sql = 'SELECT 
             EC_items.img,
@@ -28,7 +30,7 @@ try {
             ON EC_items.item_id = EC_carts.item_id
             WHERE EC_carts.user_id = ?'; 
     $stmt = $dbh->prepare($sql);
-    $stmt->bindValue(1, $user_id, PDO::PARAM_INT);
+    $stmt->bindValue(1, $user[0]['user_id'], PDO::PARAM_INT);
     $stmt->execute();
     $rows_buy = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $rows_buy = entity_assoc_array($rows_buy);

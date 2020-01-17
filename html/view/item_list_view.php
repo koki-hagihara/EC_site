@@ -35,9 +35,7 @@
                     </div>
 <?php } ?>
                 </article>
-<?php if (!empty($_SERVER['HTTP_REFERER'])) { ?>
-                <div class="return_link"><a href="<?php print $_SERVER['HTTP_REFERER']; ?>">前のページに戻る</a></div>
-<?php } ?>
+                <div class="return_link"><a href="after_login.php">TOPページに戻る</a></div>
             </div>
         </main>
     </body>

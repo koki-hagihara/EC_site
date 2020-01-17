@@ -3,7 +3,8 @@ require_once './model/function.php';
 require_once './conf/const.php';
 
 session_start();
-if(isset($_SESSION['user_id'])){
+
+if (is_logined() === true) {
     header('Location:after_login.php');
     exit;
 }

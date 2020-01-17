@@ -5,8 +5,10 @@ require_once './conf/const.php';
 session_start();
 
 if (is_logined() === false) {
-     header('Location:login.php');
-     exit;
+    header('Location:login.php');
+    exit;
+} else {
+    $user_id = get_session('user_id');
 }
 
 //if (isset($_SESSION['user_id'])) {
@@ -20,7 +22,7 @@ if (is_logined() === false) {
 try{
     $dbh=get_db_connect();
     
-    $user = get_login_user($dbh);
+    $user = get_login_user($dbh, $user_id);
     
         //新しくテーブルに追加された商品3点のデータを取得
     $sql = 'SELECT item_id, item_name, img, price 

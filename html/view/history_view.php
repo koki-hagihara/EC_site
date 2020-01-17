@@ -12,9 +12,13 @@
                 <a class="logo" href="after_login.php">SELECT SHOP EMO</a>
             </div>
             <div class="header_link">
-                <p class="welcome_msg">ようこそ！<?php print $user_name;?>様</p>
+                <p class="welcome_msg">ようこそ！<?php print $user[0]['user_name'];?>様</p>
                 <a href="after_login.php">TOP</a>
                 <a href="history.php">購入履歴</a>
+                <a href="cart.php">CART</a>
+                <?php if ($user[0]['type'] === '0') { ?>
+                    <a href = "admin.php">管理ページ</a>
+                <?php } ?>
                 <a href="logout.php">LOG OUT</a>
             </div>
         </header>
@@ -25,19 +29,18 @@
             <div class="main_container">
                 <table>
                     <tr>
+                        <th>注文番号</th>
                         <th>購入日</th>
-                        <th>商品写真</th>
-                        <th>商品名</th>
-                        <th>価格</th>
-                        <th>数量</th>
+                        <th>合計金額</th>
                     </tr>
-<?php foreach ($rows_history as $value) { ?>
+<?php foreach ($history as $value) { ?>
                     <tr>
-                        <td><?php print $value['DATE_FORMAT(EC_history.datetime, \'%Y-%m-%d\')'];?></td>
-                        <td><img class="item_img" src="<?php print $img_dir.$value['img'];?>"></td>
-                        <td><?php print $value['item_name'];?></td>
-                        <td><?php print $value['price'];?></td>
-                        <td><?php print $value['amount'];?></td>
+                        <td><?php print $value['history_id'];?></td>
+                        <td><?php print $value['order_date'];?></td>
+                        <td>
+                            <?php print $value['total_price'];?>円
+                            <a href="history_detaile.php?history_id=<?php print $value['history_id'];?>&order_date=<?php print $value['order_date'];?>&total_price=<?php print $value['total_price'];?>">購入明細表示</a>
+                        </td>
                     </tr>
 <?php } ?>
                 </table>

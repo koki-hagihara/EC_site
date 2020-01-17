@@ -13,11 +13,14 @@
             </div>
             <div class="header_link">
 <?php if (isset($_SESSION['user_id'])) { ?>
-                <p class="welcome_msg">ようこそ！<?php print $user_name;?>様</p>    
+                <p class="welcome_msg">ようこそ！<?php print $user[0]['user_name'];?>様</p>    
 <?php } ?>
                 <a href="after_login.php">TOP</a>
                 <a href="history.php">購入履歴</a>
                 <a href="cart.php">CART</a>
+                <?php if ($user[0]['type'] === '0') { ?>
+                    <a href = "admin.php">管理ページ</a>
+                <?php } ?>
                 <a href="logout.php">LOG OUT</a>
             </div>
         </header>
