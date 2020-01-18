@@ -50,6 +50,28 @@
                     </div>
                 </div>
             </div>
+            <div class = "ranking">
+                <div class ="ranking_title">
+                    <h1>人気ランキング</h1>
+                </div>
+                <div class = "ranking_contents">
+                    <div class = "ranking_block">
+<?php foreach ($ranking as $rank) { ?>
+                        <a href = "product_details.php?item_id=<?php print $rank['item_id'];?>">
+                            <figure>
+                                <figcaption class = "rank_number">
+<?php print $rank_number;?>位
+<?php $rank_number++;?>
+                                </figcaption>       
+                                <img src = "<?php print $img_dir.$rank['img'];?>">
+                                <figcaption class = "item_name"><?php print $rank['item_name'];?></figcaption>
+                                <figcaption class = "price"><?php print $rank['price'];?>円</figcaption>
+                            </figure>
+                        </a>
+<?php } ?>
+                    </div>
+                </div>
+            </div>
         </div>        
     </body>
 </html>

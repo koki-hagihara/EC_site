@@ -220,3 +220,46 @@ function get_history_details($dbh, $history_id) {
     return $history_details;
 }
 
+function get_new_arrival($dbh) {
+    $sql = "
+            SELECT 
+            item_id, item_name, img, price 
+            FROM 
+            EC_items 
+            WHERE status = 1 
+            ORDER BY 
+            create_date desc 
+            LIMIT 3
+            ";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+    $rows_new_arrival = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $rows_new_arrival = entity_assoc_array($rows_new_arrival);
+
+    return $rows_new_arrival;
+}
+
+function get_ranking($dbh) {
+    $sql = "
+            SELECT
+            EC_items.img,
+            EC_items.item_name,
+            EC_items.price,
+            EC_history_details.item_id,
+            SUM(EC_history_details.amount) AS total_amount
+            FROM
+            EC_items JOIN EC_history_details
+            ON EC_items.item_id = EC_history_details.item_id
+            GROUP BY
+            EC_history_details.item_id
+            ORDER BY
+            total_amount desc
+            LIMIT 3
+            ";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+    $ranking = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $ranking = entity_assoc_array($ranking);
+
+    return $ranking;
+}
